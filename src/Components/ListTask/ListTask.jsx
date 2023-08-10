@@ -12,6 +12,7 @@ const ListTask = () => {
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
+    setFilteredTasks(tasks);
   }, [tasks]);
 
   const deleteTask = (id) => {

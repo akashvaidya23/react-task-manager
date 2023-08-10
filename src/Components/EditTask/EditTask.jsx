@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import style from "./EditTask.module.css";
-import DatePicker from "react-datepicker";
 
 const EditTask = () => {
-  //   const navigate = useNavigate();
   const taskID = useParams();
   let id = taskID.taskId;
   let [tasks, setTasks] = useState(() => {

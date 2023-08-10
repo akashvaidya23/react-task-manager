@@ -1,11 +1,8 @@
 import Button from "react-bootstrap/Button";
 import style from "./CreateTask.module.css";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import DatePicker from "react-datepicker";
 
 const CreateTask = () => {
-  const navigate = useNavigate();
   let [tasks, setTasks] = useState(() => {
     return JSON.parse(localStorage.getItem("tasks")) || [];
   });

@@ -47,55 +47,60 @@ const CreateTask = () => {
 
   return (
     <div className={style.main}>
-      <h4>Create New Task</h4>
-      <div>
-        <label htmlFor="title">Title</label>
+      <div className={style.inputs}>
+        <h4 style={{ textAlign: "center" }}>Create New Task</h4>
+        <div>
+          <label htmlFor="title">Title</label>
+          <br />
+          <input
+            onChange={titleChangeHandler}
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Enter task title"
+            value={title}
+            style={{ width: "300px" }}
+          />
+        </div>
         <br />
-        <input
-          onChange={titleChangeHandler}
-          type="text"
-          id="title"
-          name="title"
-          placeholder="Enter task title"
-          value={title}
-        />
-      </div>
-      <br />
-      <div>
-        <label htmlFor="description">Description</label>
+        <div>
+          <label htmlFor="description">Description</label>
+          <br />
+          <textarea
+            onChange={descChangeHandler}
+            id="description"
+            name="description"
+            placeholder="Enter due date"
+            rows="4"
+            cols="25"
+            value={desc}
+            style={{ width: "300px" }}
+          ></textarea>
+        </div>
         <br />
-        <textarea
-          onChange={descChangeHandler}
-          id="description"
-          name="description"
-          placeholder="Enter due date"
-          rows="4"
-          cols="25"
-          value={desc}
-        ></textarea>
-      </div>
-      <br />
-      <div>
-        <label htmlFor="due_date">Due Date</label>
+        <div>
+          <label htmlFor="due_date">Due Date</label>
+          <br />
+          <input
+            onChange={datechangeHandler}
+            id="due_date"
+            name="due_date"
+            type="date"
+            value={date}
+            style={{ width: "300px" }}
+          />
+        </div>
         <br />
-        <input
-          onChange={datechangeHandler}
-          id="due_date"
-          name="due_date"
-          type="date"
-          value={date}
-        />
-      </div>
-      <br />
-      <div>
-        <Button
-          variant="primary"
-          onClick={() => {
-            submitTask();
-          }}
-        >
-          Submit
-        </Button>
+        <div style={{ textAlign: "center" }}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              submitTask();
+            }}
+          >
+            Submit
+          </Button>
+        </div>
       </div>
     </div>
   );

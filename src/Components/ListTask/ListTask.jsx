@@ -17,7 +17,6 @@ const ListTask = () => {
 
   const deleteTask = (id) => {
     let listTasks = [...tasks];
-    console.log("deleted", listTasks);
     listTasks.splice(id, 1);
     setTasks(listTasks);
   };
@@ -41,76 +40,88 @@ const ListTask = () => {
       <div>
         <h4 style={{ textAlign: "center" }}>List Tasks</h4>
       </div>
-      <div>
-        <input
-          type="text"
-          placeholder="Search Task"
-          style={{ float: "right", marginRight: "230px" }}
-          onChange={searchHandler}
-        />
+      <div className={style.main}>
+        <div>
+          <input
+            type="text"
+            placeholder="Search Task"
+            style={{ float: "right" }}
+            onChange={searchHandler}
+          />
+        </div>
+        <br />
+        <br />
+        <Table striped>
+          <thead>
+            <tr>
+              <th style={{ border: "1px solid black", textAlign: "center" }}>
+                Sr.No.
+              </th>
+              <th style={{ border: "1px solid black", textAlign: "center" }}>
+                Title
+              </th>
+              <th style={{ border: "1px solid black", textAlign: "center" }}>
+                Description
+              </th>
+              <th style={{ border: "1px solid black", textAlign: "center" }}>
+                Due Date
+              </th>
+              <th style={{ border: "1px solid black", textAlign: "center" }}>
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredTasks.map((task, index) => {
+              return (
+                <tr key={index}>
+                  <td
+                    style={{ border: "1px solid black", textAlign: "center" }}
+                  >
+                    {index + 1}
+                  </td>
+                  <td
+                    style={{ border: "1px solid black", textAlign: "center" }}
+                  >
+                    {task.title}
+                  </td>
+                  <td
+                    style={{ border: "1px solid black", textAlign: "center" }}
+                  >
+                    {task.desc}
+                  </td>
+                  <td
+                    style={{ border: "1px solid black", textAlign: "center" }}
+                  >
+                    {task.due_date}
+                  </td>
+                  <td
+                    style={{ border: "1px solid black", textAlign: "center" }}
+                  >
+                    <Button
+                      variant="success"
+                      onClick={() => {
+                        editTask(index);
+                      }}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="danger"
+                      style={{ marginLeft: "5px" }}
+                      onClick={() => {
+                        deleteTask(index);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
       </div>
-      <br />
-      <br />
-      <Table striped className={style.main}>
-        <thead>
-          <tr>
-            <th style={{ border: "1px solid black", textAlign: "center" }}>
-              Sr.No.
-            </th>
-            <th style={{ border: "1px solid black", textAlign: "center" }}>
-              Title
-            </th>
-            <th style={{ border: "1px solid black", textAlign: "center" }}>
-              Description
-            </th>
-            <th style={{ border: "1px solid black", textAlign: "center" }}>
-              Due Date
-            </th>
-            <th style={{ border: "1px solid black", textAlign: "center" }}>
-              Action
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredTasks.map((task, index) => {
-            return (
-              <tr key={index}>
-                <td style={{ border: "1px solid black", textAlign: "center" }}>
-                  {index + 1}
-                </td>
-                <td style={{ border: "1px solid black", textAlign: "center" }}>
-                  {task.title}
-                </td>
-                <td style={{ border: "1px solid black", textAlign: "center" }}>
-                  {task.desc}
-                </td>
-                <td style={{ border: "1px solid black", textAlign: "center" }}>
-                  {task.due_date}
-                </td>
-                <td style={{ border: "1px solid black", textAlign: "center" }}>
-                  <Button
-                    variant="success"
-                    onClick={() => {
-                      editTask(index);
-                    }}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="danger"
-                    style={{ marginLeft: "5px" }}
-                    onClick={() => {
-                      deleteTask(index);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
     </>
   );
 };

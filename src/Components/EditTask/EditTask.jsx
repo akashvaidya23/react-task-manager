@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import style from "./EditTask.module.css";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+import { ToastContainer, toast } from "react-toastify";
 
 const EditTask = () => {
   const taskID = useParams();
@@ -22,9 +25,10 @@ const EditTask = () => {
     setDesc(e.target.value);
   };
 
-  let [date, setDate] = useState(task.due_date);
-  const datechangeHandler = (e) => {
-    setDate(e.target.value);
+  const defDate = moment(task.due_date).toDate();
+  let [date, setDate] = useState(defDate);
+  const dateChangeHandler = (date) => {
+    setDate(date);
   };
 
   const updateHandler = () => {
@@ -35,10 +39,18 @@ const EditTask = () => {
       let oldtasks = [...tasks];
       oldtasks[id].title = title;
       oldtasks[id].desc = desc;
-      oldtasks[id].due_date = date;
-      console.log(oldtasks);
+      oldtasks[id].due_date = moment(date).format("DD/MM/YYYY");
       setTasks(oldtasks);
-      alert("Task updated successfully");
+      toast.success("Task updated successfully", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
@@ -83,13 +95,12 @@ const EditTask = () => {
           <div>
             <label htmlFor="due_date">Due Date</label>
             <br />
-            <input
-              onChange={datechangeHandler}
-              id="due_date"
-              name="due_date"
-              type="date"
-              value={date}
-              style={{ width: "300px" }}
+            <DatePicker
+              selected={date}
+              onChange={dateChangeHandler}
+              minDate={new Date()}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Select due date"
             />
           </div>
           <br />
@@ -104,6 +115,18 @@ const EditTask = () => {
             </Button>
           </div>
         </div>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
     </>
   );

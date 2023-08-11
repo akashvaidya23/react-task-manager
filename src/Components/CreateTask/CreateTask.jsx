@@ -1,6 +1,8 @@
 import Button from "react-bootstrap/Button";
 import style from "./CreateTask.module.css";
 import { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import { ToastContainer, toast } from "react-toastify";
 
 const CreateTask = () => {
   let [tasks, setTasks] = useState(() => {
@@ -21,15 +23,21 @@ const CreateTask = () => {
     setDesc(e.target.value);
   };
 
-  const [date, setDate] = useState("");
-  const datechangeHandler = (e) => {
-    setDate(e.target.value);
-  };
+  const [date, setDate] = useState(new Date());
 
   const submitTask = () => {
     let new_tasks = [...tasks];
     if (!title || !desc || !date) {
-      alert("Kindly fill all the details");
+      toast.warn("Kindly fill all the details", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } else {
       let details = {
         title: title,
@@ -41,7 +49,16 @@ const CreateTask = () => {
       setTitle("");
       setDesc("");
       setDate("");
-      alert("Task added successfully");
+      toast.success("Task added successfully", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
@@ -81,13 +98,12 @@ const CreateTask = () => {
         <div>
           <label htmlFor="due_date">Due Date</label>
           <br />
-          <input
-            onChange={datechangeHandler}
-            id="due_date"
-            name="due_date"
-            type="date"
-            value={date}
-            style={{ width: "300px" }}
+          <DatePicker
+            selected={date}
+            onChange={(date) => setDate(date)}
+            minDate={new Date()}
+            dateFormat="dd/MM/yyyy"
+            placeholderText="Select due date"
           />
         </div>
         <br />
@@ -102,6 +118,18 @@ const CreateTask = () => {
           </Button>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
